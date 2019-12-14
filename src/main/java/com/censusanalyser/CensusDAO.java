@@ -15,15 +15,30 @@ public class CensusDAO {
         population = indiaCensusCSV.population;
     }
 
-    public CensusDAO(USCensusCode usCensusCSv) {
-        state = usCensusCSv.state;
-        stateCode = usCensusCSv.stateId;
-        totalArea = usCensusCSv.totalArea;
-        populationDensity = usCensusCSv.populationDensity;
-        population = usCensusCSv.population;
+    public CensusDAO(USCensusCode usCensusCSV) {
+        state = usCensusCSV.state;
+        stateCode = usCensusCSV.stateId;
+        totalArea = usCensusCSV.totalArea;
+        populationDensity = usCensusCSV.populationDensity;
+        population = usCensusCSV.population;
     }
 
-    public IndiaCensusCSV getIndiaCensusCSV() {
-        return new IndiaCensusCSV(state,population,(int)populationDensity,(int)totalArea);
+    public CensusDAO(){}
+
+    public Object getCensesCSV(CensusAnalyser.Country country) {
+        if(CensusAnalyser.Country.India.equals(country))
+            return new IndiaCensusCSV(state, population, (int)populationDensity, (int)totalArea);
+        return new USCensusCode(state, stateCode, population, totalArea, populationDensity);
+    }
+
+    @Override
+    public String toString() {
+        return "CensusDAO{" +
+                "state='" + state + '\'' +
+                ", stateCode='" + stateCode + '\'' +
+                ", population=" + population +
+                ", populationDensity=" + populationDensity +
+                ", totalArea=" + totalArea +
+                '}';
     }
 }
